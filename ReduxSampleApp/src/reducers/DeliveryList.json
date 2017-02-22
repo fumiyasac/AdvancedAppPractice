@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "image": "xxx",
+    "shopname": "おみせ1",
+    "tel": "0312345678",
+    "opentime": "11:00~20:00",
+    "closetime": "不定休",
+    "catchcopy": "テストテストテスト！"
+  },
+  {
+    "id": 2,
+    "image": "xxx",
+    "shopname": "おみせ2",
+    "tel": "0323456789",
+    "opentime": "11:00~20:00",
+    "closetime": "不定休",
+    "catchcopy": "テストテストテスト！"
+  }
+]
