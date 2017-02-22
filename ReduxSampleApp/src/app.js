@@ -21,13 +21,25 @@ import { createStore } from 'redux';
 // http://qiita.com/yasuhiro-okada-aktsk/items/9d9025cb58ffba35f864
 import reducers from './reducers';
 
+//共通設定した部品のインポート宣言
+import { Header } from './components/common';
+
 //アプリの画面の組み立て
 const App = () => {
   return (
     <Provider store={createStore(reducers)}>
-      <View />
+      <View style={styles.baseAppStyle}>
+        <Header headerText="自分の出前リスト" />
+      </View>
     </Provider>
   );
+};
+
+//このコンポーネントのStyle定義
+const styles = {
+  baseAppStyle: {
+    flex: 1
+  }
 };
 
 //アプリの画面本体となるこのファイルのエクスポート宣言
