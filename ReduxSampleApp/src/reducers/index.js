@@ -28,7 +28,7 @@ import SelectionReducer from './SelectionReducer';
 //combineReducers関数を用いてそれぞれの異なるReducerを結合したものを作成する
 // → (子)DeliveryReducer + (子)SelectionReducer = (親)Reducer
 export default combineReducers({
-  deliveries: DeliveryReduce,
+  deliveries: DeliveryReducer,
   selectedLibraryId: SelectionReducer
 });
 
