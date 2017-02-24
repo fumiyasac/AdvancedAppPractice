@@ -29,7 +29,7 @@ import SelectionReducer from './SelectionReducer';
 // → (子)DeliveryReducer + (子)SelectionReducer = (親)Reducer
 export default combineReducers({
   deliveries: DeliveryReducer,
-  selectedLibraryId: SelectionReducer
+  selectedDeliveryId: SelectionReducer
 });
 
 //Debug.
