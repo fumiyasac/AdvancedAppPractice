@@ -4,6 +4,15 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 
+//connectのインポート宣言を行う
+// → connectを用いてstoreをpropで読めるようにする
+// 参考：[redux] Presentational / Container componentの分離 - react-redux.connect()のつかいかた
+// http://qiita.com/yuichiroTCY/items/a3ca7d9d415049d02d60
+import { connect } from 'react-redux';
+
+//ActionCreator(Actionの寄せ集め)のインポート宣言(this.props.この中に定義したメソッド名の形で実行)
+import { emailChanged, passwordChanged, loginUser } from '../actions';
+
 //LoginFormの作成に必要な自作コンポーネント群のインポート宣言を行う
 import { GridArea, GridSection, Input, Button, Spinner } from './common';
 
@@ -11,12 +20,27 @@ import { GridArea, GridSection, Input, Button, Spinner } from './common';
 class LoginForm extends Component {
 
   //ボタン押下時に実行されるメソッド
+  onEmailChange(text) {
+
+    //AuthActions.jsに定義されたアクション：emailChangedを実行する
+    this.props.emailChanged(text);
+  }
+
+  //ボタン押下時に実行されるメソッド
+  onPasswordChange(text) {
+
+    //AuthActions.jsに定義されたアクション：passwordChangedを実行する
+    this.props.passwordChanged(text);
+  }
+
+  //ボタン押下時に実行されるメソッド
   onButtonPress() {
 
     //ステートからメールアドレスとパスワードを取得する
     const { email, password } = this.props;
 
-    //TODO: 残りの処理を記載する
+    //AuthActions.jsに定義されたアクション：loginUserを実行する
+    this.props.loginUser({ email, password });
   }
 
   //現在の実行状態と紐づいたボタンのレンダリングを行うメソッド
@@ -70,3 +94,34 @@ class LoginForm extends Component {
     );
   }
 }
+
+//このコンポーネントのStyle定義
+const styles = {
+  errorTextStyle: {
+    fontSize: 16,
+    alignSelf: 'center',
+    color: 'red'
+  }
+};
+
+//ステートから値を取得してthis.propsにセットする
+// → 内容は「reducers/index.js」を参照
+// ※ Reducerにあるものを再度詰め直しを行うイメージ
+const mapStateToProps = ({ auth }) => {
+
+  //引数で受け取った認証データを変数に分解する
+  const { email, password, error, loading } = auth;
+
+  //分解したそれぞれの値をオブジェクトにして返却する
+  return { email, password, error, loading };
+};
+
+//インポート可能にする宣言
+// ※書き方メモ：export default connect(mapStateToProps, mapDispatchToProps)(Class)の形で記述する
+//
+// 引数：
+// mapStateToProps：globalなstateから利用する値をとってきてthis.propsにセットする
+// mapDispatchToProps：this.method.actionHoge()を呼ぶとstore.dispatch()が呼ばれる → アクションを定義している場合にはそのアクションメソッドを設定
+//
+// http://qiita.com/yuichiroTCY/items/a3ca7d9d415049d02d60
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginForm);

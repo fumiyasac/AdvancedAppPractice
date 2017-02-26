@@ -14,7 +14,26 @@ import React, { Component } from 'react';
 // (参考2) React-Redux をわかりやすく解説しつつ実践的に一部実装してみる
 // http://ma3tk.hateblo.jp/entry/2016/06/20/182232
 import { Provider } from 'react-redux';
+
+//createStore, applyMiddlewareのインポート宣言
+// → applyMiddlewareを使うことでdispatch関数をラップしactionがreducerに到達する前にmiddlewareがキャッチできるようにする
+// (参考1) reduxのcomposeとapplyMiddlewareとenhancer
+// http://qiita.com/pirosikick/items/d7f9e5e197a2e8aad62f
+// (参考2) Redux基礎：Middleware編
+// http://qiita.com/yasuhiro-okada-aktsk/items/1fe3df267a6034d970c1
+// (参考3) ReduxのMiddlewareについて理解したいマン
+// https://hogehuga.com/post-1123/
 import { createStore, applyMiddleware } from 'redux';
+
+//redux-thunkのインポート宣言
+// → 非同期処理でアクションを起こすような関数をdispatchに渡せるようにする
+// (非同期処理に関する参考)react+reduxで非同期処理を含むtodoアプリを作ってみる
+// http://qiita.com/halhide/items/a45c7a1d5f949596e17d
+// (参考1) redux-thunkとは？
+// http://qiita.com/koichirokamoto/items/18f184247ca349cc03a8
+// (参考2) Reduxの非同期通信についての（個人的な）整理メモ
+// http://qiita.com/kmszk/items/c530c33fe5ffdc7a36da
+import ReduxThunk from 'redux-thunk';
 
 //reducerのインポート宣言
 // → ざっくり言えば状態変化を起こすための具体的な処理の寄せ集め
@@ -47,7 +66,12 @@ class App extends Component {
 
   //見た目データのレンダリングを行う
   render() {
+
+    //Redux本来のdispatch処理が実行される前にMiddlewareの処理を実行する
+    //※ 非同期処理でアクションを起こすような関数をdispatchに渡せるようにするReduxThunkを仕込む形にする
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
+    //アプリの画面の組み立て
     return (
       <Provider store={store}>
         <Router />

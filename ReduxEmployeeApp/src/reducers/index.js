@@ -20,7 +20,7 @@
 import { combineReducers } from 'redux';
 
 //各々の要素に関するReducerのインポート宣言
-// → AuthReducer：
+// → AuthReducer：認証状態のステート処理に関するReducer
 // → EmployeeFormReducer：
 // → EmployeeReducer：
 import AuthReducer from './AuthReducer';
