@@ -44,6 +44,9 @@ import reducers from './reducers';
 //firebaseのインポート宣言を行う
 import firebase from 'firebase';
 
+//Routerコンポーネントのインポート宣言
+import Router from './router';
+
 //アプリの画面の組み立て
 class App extends Component {
 
