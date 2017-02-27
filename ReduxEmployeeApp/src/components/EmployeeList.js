@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
-//import ListItem from './ListItem';
+import ListItem from './ListItem';
 
 //コンポーネントの内容を定義する ※ ClassComponent
 class EmployeeList extends Component {
@@ -37,7 +37,7 @@ class EmployeeList extends Component {
 
   //リストになっている出前データの一覧表示用の部品(<ListItem>)の設定を行う
   renderRow(employee) {
-    //return <ListItem employee={employee} />;
+    return <ListItem employee={employee} />;
   }
 
   //見た目データのレンダリングを行う
@@ -48,9 +48,7 @@ class EmployeeList extends Component {
     // (1) <ListView>のpropsに表示させたいデータを指定するdataSource
     // (2) データの表示方法を指定するrenderRow ※renderRow(delivery)の引数は設定される
     return (
-      /*
       <ListView enableEmptySections dataSource={this.dataSource} renderRow={this.renderRow} />
-      */
     );
   }
 }
