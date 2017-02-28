@@ -1,6 +1,7 @@
 /**
  * ログイン用のフォーム部分のコンポーネント
  */
+
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 
@@ -54,7 +55,7 @@ class LoginForm extends Component {
 
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        ログイン＆サインアップ
+        Login
       </Button>
     );
   }
@@ -69,7 +70,7 @@ class LoginForm extends Component {
             placeholder="user@gmail.com"
             label="メールアドレス"
             value={this.props.email}
-            onChangeText={ /* TODO:残りの処理を記載する */ }
+            onChangeText={this.onEmailChange.bind(this)}
           />
         </GridSection>
         { /* 2：パスワードの入力部分 */ }
@@ -79,7 +80,7 @@ class LoginForm extends Component {
             placeholder="password"
             label="パスワード"
             value={this.props.password}
-            onChangeText={ /* TODO:残りの処理を記載する */ }
+            onChangeText={this.onPasswordChange.bind(this)}
           />
         </GridSection>
         { /* 3：認証失敗時のエラーメッセージ表示部分 */ }

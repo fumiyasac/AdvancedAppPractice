@@ -1,6 +1,21 @@
 /**
  * 顧客情報入力フォーム用部分のコンポーネント
  */
+
+ //Firebase側のセキュリティルール
+/* Realtime Databaseのルールタブ部分に下記のような記載をしておく
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    }
+  }
+}
+*/
+
 import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
 
