@@ -37,7 +37,7 @@ export const passwordChanged = (text) => {
 //ログインボタン押下時に実行されるメソッド
 export const loginUser = ({ email, password }) => {
 
-  //アクションの実行とFirebaseへの認証処理を行う
+  //アクションの実行とFirebaseへの認証処理を行う(非同期での実行)
   return (dispatch) => {
 
     //ステートの更新を行う（ログイン中状態のステータスにする）

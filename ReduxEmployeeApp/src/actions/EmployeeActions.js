@@ -42,7 +42,7 @@ export const employeeCreate = ({ name, phone, shift }) => {
   //現在認証されているユーザーを取得する
   const { currentUser } = firebase.auth();
 
-  //データに関する処理を実行する
+  //データに関する処理を実行する(非同期での実行)
   return (dispatch) => {
 
     //firebaseのDatabaseへアクセスを行い新規データを登録する（新規追加時に一意なIDを作成される）
@@ -66,11 +66,12 @@ export const employeesFetch = () => {
   //現在認証されているユーザーを取得する
   const { currentUser } = firebase.auth();
 
-  //データに関する処理を実行する
+  //データに関する処理を実行する(非同期での実行)
   return (dispatch) => {
 
     //firebaseのDatabaseへアクセスを行いユーザーに紐づく従業員データを全て取得する
     // (データの持ち方や参照方法は公式ドキュメントを参考にしてみてください)
+    // 基本的にはiOSのfirebaseからのfetch処理同様にsnapshotを受け取ったタイミングでの処理内容をクロージャー内に記載する
     firebase.database().ref(`/users/${currentUser.uid}/employees`)
       .on('value', snapshot => {
 
@@ -109,7 +110,7 @@ export const employeeDelete = ({ uid }) => {
   //現在認証されているユーザーを取得する
   const { currentUser } = firebase.auth();
 
-  //データに関する処理を実行する
+  //データに関する処理を実行する(非同期での実行)
   return () => {
 
     //firebaseのDatabaseへアクセスを行い一意なID（uidがそれにあたる）に該当するデータを削除する

@@ -3,6 +3,17 @@
  */
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
+
+//connectのインポート宣言を行う
+// → connectを用いてstoreをpropで読めるようにする
+// 参考：[redux] Presentational / Container componentの分離 - react-redux.connect()のつかいかた
+// http://qiita.com/yuichiroTCY/items/a3ca7d9d415049d02d60
+import { connect } from 'react-redux';
+
+//ActionCreator(Actionの寄せ集め)のインポート宣言(this.props.この中に定義したメソッド名の形で実行)
+import { employeesFetch } from '../actions';
+
+//自作コンポーネント：ListItemのインポート宣言
 import ListItem from './ListItem';
 
 //コンポーネントの内容を定義する ※ ClassComponent
@@ -17,6 +28,11 @@ class EmployeeList extends Component {
 
   //処理の過程の中でpropsを再度受け取った際に行う処理
   componentWillReceiveProps(nextProps) {
+
+    //コメント：
+    // nextProps are the next set of props that this component
+    // will be rendered with
+    // this.props is still the old set of props
 
     //propsから取得できた値をListViewのデータソースへ格納する
     this.createDataSource(nextProps);
