@@ -4,6 +4,16 @@
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 
+//オブジェクトを配列に変換するのに便利なライブラリ「lodash」のインポート宣言
+// → underscore.jsとほぼ同様の機能を提供してくれるもの？
+// (公式ドキュメント)
+// https://lodash.com/docs
+// 参考：JavaScriptで関数型プログラミングを強力に後押しするUnderscore.jsのおすすめメソッド12選（lodashもあるよ）
+// http://qiita.com/takeharu/items/7d4ead780710c627172e
+// 参考：lodashでよく使う関数まとめ
+// http://matsukaz.hatenablog.com/entry/2014/04/09/082410
+import _ from 'lodash';
+
 //connectのインポート宣言を行う
 // → connectを用いてstoreをpropで読めるようにする
 // 参考：[redux] Presentational / Container componentの分離 - react-redux.connect()のつかいかた
@@ -68,3 +78,30 @@ class EmployeeList extends Component {
     );
   }
 }
+
+//ステートから値を取得してthis.propsにセットする
+// → 内容は「reducers/index.js」を参照
+// ※ Reducerにあるものを再度詰め直しを行うイメージ
+const mapStateToProps = state => {
+
+  //lodashのmapメソッドを用いてステートの値をListView表示用に整形する
+  // (参考) https://lodash.com/docs/4.17.4#map
+  const employees = _.map(state.employees, (val, uid) => {
+
+    //Objectにそれぞれの値を格納する { name: "ALEX", phone: "03-1234-5678", shift: "Monday", uid: "aS4Xuce-us5Sei5ka" }のような形
+    return { ...val, uid };
+  });
+
+  //上記で生成したオブジェクトの固まりを返す
+  return { employees };
+};
+
+//インポート可能にする宣言
+// ※書き方メモ：export default connect(mapStateToProps, mapDispatchToProps)(Class)の形で記述する
+//
+// 引数：
+// mapStateToProps：globalなstateから利用する値をとってきてthis.propsにセットする
+// mapDispatchToProps：this.method.actionHoge()を呼ぶとstore.dispatch()が呼ばれる → アクションを定義している場合にはそのアクションメソッドを設定
+//
+// http://qiita.com/yuichiroTCY/items/a3ca7d9d415049d02d60
+export default connect(mapStateToProps, { employeesFetch })(EmployeeList);
