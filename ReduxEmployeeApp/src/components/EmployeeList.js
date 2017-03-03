@@ -43,6 +43,7 @@ class EmployeeList extends Component {
     // nextProps are the next set of props that this component
     // will be rendered with
     // this.props is still the old set of props
+    // → 要は再度値が変更された場合にListViewを更新してもthis.propsの値は変化していないのでこのような形にしている
 
     //propsから取得できた値をListViewのデータソースへ格納する
     this.createDataSource(nextProps);

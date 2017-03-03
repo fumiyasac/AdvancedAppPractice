@@ -35,7 +35,9 @@ class EmployeeCreate extends Component {
   render() {
     return (
       <Card>
+        { /* 1. 従業員フォームのコンポーネントを表示する */ }
         <EmployeeForm {...this.props} />
+        { /* 2. データの新規追加用のボタン表示 */ }
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
             Create

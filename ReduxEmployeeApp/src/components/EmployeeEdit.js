@@ -40,8 +40,8 @@ class EmployeeEdit extends Component {
   //コンポーネントの内容がMountされる前に行う処理
   componentWillMount() {
 
-    //
-    _.each(this.props.employee, (value, prop) => {
+    //this.props.employee(Storeから取ってきたもの)を再度マッピングをし直してステートを更新する ※値とキーが反対なので注意する
+    _.forEach(this.props.employee, (value, prop) => {
       this.props.employeeUpdate({ prop, value });
     });
   }
@@ -49,17 +49,17 @@ class EmployeeEdit extends Component {
   //「Save Changes」ボタン押下時の処理
   onButtonPress() {
 
-    //
+    //取得したthis.propsの値をそれぞれの値に分割する（入力・選択対象のデータを取得する）
     const { name, phone, shift } = this.props;
 
-    //
+    //uidがキーとなる既存1件のデータを更新する
     this.props.employeeSave({ name, phone, shift, uid: this.props.employee.uid });
   }
 
-  //
+  //シフト更新用のボタンを押下した際の処理
   onTextPress() {
 
-    //
+    //取得したthis.propsの値をそれぞれの値に分割する
     const { phone, shift } = this.props;
 
     //
@@ -69,10 +69,10 @@ class EmployeeEdit extends Component {
   //onAccept属性に設定した関数が発火した際の処理
   onAccept() {
 
-    //
+    //取得したthis.propsの値をそれぞれの値に分割する（uidだけを取得する）
     const { uid } = this.props.employee;
 
-    //
+    //uidがキーとなる既存1件のデータを削除する
     this.props.employeeDelete({ uid });
   }
 
@@ -87,23 +87,25 @@ class EmployeeEdit extends Component {
   render() {
     return (
       <GridArea>
-        { /**/ }
+        { /* 1. 従業員フォームのコンポーネント */ }
         <EmployeeForm />
-
-        { /**/ }
+        { /* 2. データの更新用のボタン */ }
         <GridSection>
           <Button onPress={this.onButtonPress.bind(this)}>
             Save Changes
           </Button>
         </GridSection>
-
-        { /**/ }
+        {
+          /**
+           * 3. シフト部分のボタン
+           * Communicationsを使用してデータの変更を伝える必要がある
+           */
+        }
         <GridSection>
           <Button onPress={this.onTextPress.bind(this)}>
             Text Schedule
           </Button>
         </GridSection>
-
         {
           /**
            * 4. モーダル表示用のトリガーとなるボタン
@@ -115,7 +117,6 @@ class EmployeeEdit extends Component {
             Fire Employee
           </Button>
         </GridSection>
-
         {
           /**
            * 5. モーダル表示
