@@ -34,7 +34,7 @@ import { employeeUpdate, employeeSave, employeeDelete } from '../actions';
 //コンポーネントの内容を定義する ※ ClassComponent
 class EmployeeEdit extends Component {
 
-  //※このステートはモーダルのコントロールをするために使用する
+  //このコンポーネント内のステート ※このステートはモーダルのコントロールをするために使用する
   state = { showModal: false };
 
   //コンポーネントの内容がMountされる前に行う処理
@@ -46,7 +46,7 @@ class EmployeeEdit extends Component {
     });
   }
 
-  //
+  //「Save Changes」ボタン押下時の処理
   onButtonPress() {
 
     //
@@ -66,7 +66,7 @@ class EmployeeEdit extends Component {
     Communications.text(phone, `Your upcoming shift is on ${shift}`);
   }
 
-  //
+  //onAccept属性に設定した関数が発火した際の処理
   onAccept() {
 
     //
@@ -76,12 +76,14 @@ class EmployeeEdit extends Component {
     this.props.employeeDelete({ uid });
   }
 
-  //
+  //onDecline属性に設定した関数が発火した際の処理
   onDecline() {
+
+    //このコンポーネントのstateをfalseに戻す
     this.setState({ showModal: false });
   }
 
-  //
+  //見た目データのレンダリングを行う
   render() {
     return (
       <GridArea>
@@ -102,14 +104,24 @@ class EmployeeEdit extends Component {
           </Button>
         </GridSection>
 
-        { /**/ }
+        {
+          /**
+           * 4. モーダル表示用のトリガーとなるボタン
+           * ※デフォルト値がfalseなのでtrueにする → そうすることで削除用のモーダルが表示される形になる
+           */
+        }
         <GridSection>
           <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>
             Fire Employee
           </Button>
         </GridSection>
 
-        { /**/ }
+        {
+          /**
+           * 5. モーダル表示
+           * ※this.stateと連動してモーダルの表示・非表示が決定する
+           */
+        }
         <Confirm
           visible={this.state.showModal}
           onAccept={this.onAccept.bind(this)}
@@ -122,15 +134,24 @@ class EmployeeEdit extends Component {
   }
 }
 
-//
+//ステートから値を取得してthis.propsにセットする
+// → 内容は「reducers/index.js」を参照
+// ※ Reducerにあるものを再度詰め直しを行うイメージ
 const mapStateToProps = (state) => {
 
-  //
+  //引数で受け取った認証データを変数に分解する
   const { name, phone, shift } = state.employeeForm;
 
-  //
+  //分解したそれぞれの値をオブジェクトにして返却する
   return { name, phone, shift };
 };
 
+//インポート可能にする宣言
+// ※書き方メモ：export default connect(mapStateToProps, mapDispatchToProps)(Class)の形で記述する
 //
+// 引数：
+// mapStateToProps：globalなstateから利用する値をとってきてthis.propsにセットする
+// mapDispatchToProps：this.method.actionHoge()を呼ぶとstore.dispatch()が呼ばれる → アクションを定義している場合にはそのアクションメソッドを設定
+//
+// http://qiita.com/yuichiroTCY/items/a3ca7d9d415049d02d60
 export default connect(mapStateToProps, { employeeUpdate, employeeSave, employeeDelete })(EmployeeEdit);
