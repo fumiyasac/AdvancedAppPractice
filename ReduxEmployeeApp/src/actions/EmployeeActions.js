@@ -18,7 +18,7 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
 //従業員データ関連のアクションタイプ定義のインポート宣言
-import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FETCH_SUCCESS, EMPLOYEE_SAVE_SUCCESS } from './types';
+import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FETCH_SUCCESS, EMPLOYEE_SAVE_SUCCESS, EMPLOYEE_DELETE_SUCCESS, EMPLOYEE_REFRESH } from './types';
 
 /**
  * データ処理の流れとしては、
@@ -26,6 +26,13 @@ import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FETCH_SUCCESS, EMPLOYEE_SAV
  * (工程2) firebaseのメソッド処理のコールバック内にステートに関する処理を行う
  * というイメージの流れ方になります。
  */
+
+ //従業員入力前にステートの値を初期化するメソッド
+ export const employeeRefresh = () => {
+
+   //ステートの中身を初期化するアクションを実行する
+   return { type: EMPLOYEE_REFRESH };
+ };
 
 //従業員入力時にステートの値を更新するメソッド
 export const employeeUpdate = ({ prop, value }) => {
@@ -111,12 +118,15 @@ export const employeeDelete = ({ uid }) => {
   const { currentUser } = firebase.auth();
 
   //データに関する処理を実行する(非同期での実行)
-  return () => {
+  return (dispatch) => {
 
     //firebaseのDatabaseへアクセスを行い一意なID（uidがそれにあたる）に該当するデータを削除する
     firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
       .remove()
       .then(() => {
+
+        //ステートの更新アクションを実行(※従業員データの削除)
+        dispatch({ type: EMPLOYEE_DELETE_SUCCESS });
 
         //従業員一覧画面へ遷移する
         Actions.employeeList({ type: 'reset' });

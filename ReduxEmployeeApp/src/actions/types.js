@@ -15,3 +15,5 @@ export const EMPLOYEE_UPDATE = 'employee_update';
 export const EMPLOYEE_CREATE = 'employee_create';
 export const EMPLOYEES_FETCH_SUCCESS = 'employees_fetch_success';
 export const EMPLOYEE_SAVE_SUCCESS = 'employee_save_success';
+export const EMPLOYEE_DELETE_SUCCESS = 'employee_save_success';
+export const EMPLOYEE_REFRESH = 'employee_refresh';

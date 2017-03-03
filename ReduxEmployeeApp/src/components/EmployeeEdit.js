@@ -19,7 +19,7 @@ import _ from 'lodash';
 // http://qiita.com/yuichiroTCY/items/a3ca7d9d415049d02d60
 import { connect } from 'react-redux';
 
-//
+//電話やEメールを開くためのライブラリ「react-native-communications」のインポート宣言
 import Communications from 'react-native-communications';
 
 //共通設定した部品のインポート宣言
@@ -62,7 +62,7 @@ class EmployeeEdit extends Component {
     //取得したthis.propsの値をそれぞれの値に分割する
     const { phone, shift } = this.props;
 
-    //
+    //ボタンを押下すると電話がかかるようにする
     Communications.text(phone, `Your upcoming shift is on ${shift}`);
   }
 
@@ -97,8 +97,7 @@ class EmployeeEdit extends Component {
         </GridSection>
         {
           /**
-           * 3. シフト部分のボタン
-           * Communicationsを使用してデータの変更を伝える必要がある
+           * 3. シフト部分のボタン → Communicationsを使用して電話をかけられるようにする
            */
         }
         <GridSection>
@@ -108,8 +107,7 @@ class EmployeeEdit extends Component {
         </GridSection>
         {
           /**
-           * 4. モーダル表示用のトリガーとなるボタン
-           * ※デフォルト値がfalseなのでtrueにする → そうすることで削除用のモーダルが表示される形になる
+           * 4. モーダル表示用のトリガーとなるボタン → ※デフォルト値がfalseなのでtrueにする → そうすることで削除用のモーダルが表示される形になる
            */
         }
         <GridSection>
@@ -123,11 +121,7 @@ class EmployeeEdit extends Component {
            * ※this.stateと連動してモーダルの表示・非表示が決定する
            */
         }
-        <Confirm
-          visible={this.state.showModal}
-          onAccept={this.onAccept.bind(this)}
-          onDecline={this.onDecline.bind(this)}
-          >
+        <Confirm visible={this.state.showModal} onAccept={this.onAccept.bind(this)} onDecline={this.onDecline.bind(this)}>
             Are you sure you want to delete this?
         </Confirm>
       </GridArea>

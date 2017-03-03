@@ -32,6 +32,9 @@ class EmployeeList extends Component {
   //コンポーネントの内容がMountされる前に行う処理
   componentWillMount() {
 
+    //ステートから値を取得してthis.propsにセットする処理を実行する
+    this.props.employeesFetch();
+
     //propsから取得できた値をListViewのデータソースへ格納する
     this.createDataSource(this.props);
   }

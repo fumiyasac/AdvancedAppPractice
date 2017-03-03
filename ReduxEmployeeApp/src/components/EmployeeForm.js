@@ -83,7 +83,8 @@ const styles = {
     flex: 1
   },
   pickerTextStyle: {
-    fontSize: 18,
+    fontSize: 14,
+    paddingTop: 8,
     paddingLeft: 20
   }
 };

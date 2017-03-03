@@ -11,7 +11,7 @@
  */
 
 //従業員データの追加・変更時の状態ステータス関連のアクションタイプ定義のインポート宣言
-import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEE_SAVE_SUCCESS } from '../actions/types';
+import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEE_SAVE_SUCCESS, EMPLOYEE_DELETE_SUCCESS, EMPLOYEE_REFRESH } from '../actions/types';
 
 //初期状態のステート定義（オブジェクトの形にする）
 const INITIAL_STATE = { name: '', phone: '', shift: '' };
@@ -28,6 +28,10 @@ export default (state = INITIAL_STATE, action) => {
     case EMPLOYEE_CREATE:
       return INITIAL_STATE;
     case EMPLOYEE_SAVE_SUCCESS:
+      return INITIAL_STATE;
+    case EMPLOYEE_DELETE_SUCCESS:
+      return INITIAL_STATE;
+    case EMPLOYEE_REFRESH:
       return INITIAL_STATE;
     default:
       return state;

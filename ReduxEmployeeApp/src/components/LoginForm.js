@@ -68,7 +68,7 @@ class LoginForm extends Component {
         <GridSection>
           <Input
             placeholder="user@gmail.com"
-            label="メールアドレス"
+            label="E-mail"
             value={this.props.email}
             onChangeText={this.onEmailChange.bind(this)}
           />
@@ -78,7 +78,7 @@ class LoginForm extends Component {
           <Input
             secureTextEntry
             placeholder="password"
-            label="パスワード"
+            label="Password"
             value={this.props.password}
             onChangeText={this.onPasswordChange.bind(this)}
           />

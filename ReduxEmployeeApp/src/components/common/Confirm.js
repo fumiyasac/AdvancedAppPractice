@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Modal } from 'react-native';
 
 //このコンポーネントで使用する共通コンポーネントのインポート宣言
-import { GridSection } from './CardSection';
+import { GridSection } from './GridSection';
 import { Button } from './Button';
 
 //コンポーネントの内容を定義する ※ FunctionalComponent
@@ -20,12 +20,12 @@ import { Button } from './Button';
 const Confirm = ({ children, visible, onAccept, onDecline }) => {
 
   //表示する要素を返す
+  /**
+   * モーダルビューに関するセッティングを行う
+   * (参考) Modalに関する公式ドキュメント
+   * https://facebook.github.io/react-native/docs/modal.html
+   */
   return (
-    /**
-     * モーダルビューに関するセッティングを行う
-     * (参考) Modalに関する公式ドキュメント
-     * https://facebook.github.io/react-native/docs/modal.html
-     */
     <Modal
       visible={visible}
       transparent
